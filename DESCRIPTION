@@ -1,0 +1,21 @@
+Package: uvc
+Title: uvc
+Description: Convenience tools for managing ungulate vehicle collision project at Tandy Center for Ocean Forecasting.  Provides base object functionality for databasing, path management and logging.
+Version: 0.1
+Depends:
+    R (>= 4.1)
+Imports:
+  utils,
+  rlang,
+  dplyr,
+  readr,
+  yaml,
+  sf,
+  stars,
+  suncalc
+URL: https://github.com/BigelowLab/uvc
+Encoding: UTF-8
+Maintainer: Ben Tupper <btupper@bigelow.org>
+Author: Ben Tupper <btupper@bigelow.org>, Anna Yu <yueyu@colby.edu>
+License: MIT + file LICENSE
+RoxygenNote: 7.1.2
