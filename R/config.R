@@ -40,5 +40,16 @@ read_configuration <- function(filename,
 #' @param filename charcater, the file specification to write to
 #' @return the configuration as a named list
 write_configuration <- function(x, filename){
-    yaml::write_yaml(x, file = filename)
+  
+  if ("bbox" %in% names(x)){
+    y <- x
+    if (inherits(x$bbox), "bbox")) {
+      x$bbox <- as.list(x$bbox)
+  }
+  
+  yaml::write_yaml(x, file = filename)
+  
+  if ("bbox" %in% names(x)) x <- y
+  
+  x
 }
