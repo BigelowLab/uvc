@@ -1,7 +1,7 @@
 # given a config file generate one or more models for the given days
 #
 # Calling Sequence:
-#  Rscript /path/to/script /path/to/config/ doy 
+#  Rscript /path/to/script /path/to/config/ doy1 [doy2] 
 #  Rscript /mnt/ecocast/corecode/R/uvc/inst/scripts/v0.000-model-doy.R /mnt/ecocast/projectdata/uvc/mvc/versions/v0/v0.000/v0.000.yaml 257-262
 #
 # doy may be a single '077' or a range of doys '070-093'. Note three character representation.
@@ -23,7 +23,7 @@ if (DEVMODE){
 } else {
   args <- commandArgs(trailingOnly = TRUE)
   cfgfile = args[1]
-  doys <- strsplit(args[2], "-", fixed = TRUE)[[1]]
+  doys <- args[seq(from = 2, to = length(args))]
   if (length(doys) == 1){
     DOYS <- sprintf("%0.3i", as.integer(doys))
   } else {

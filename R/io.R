@@ -83,7 +83,7 @@ read_xcast_date <- function(cfg, when = Sys.Date()){
         when <- w
     }
 
-    doy     <- format(when, "%j")
+    doy <- format(when, "%j")
     ff <- list.files(version_path(cfg, "xcast", doy),
             pattern = utils::glob2rx("*.tif"), full.names = TRUE)
     if (length(ff) == 0) return(NULL)

@@ -1,0 +1,47 @@
+version: v0.000
+name: mvc
+longname: Moose Vehicle Collision
+datapath: /mnt/ecocast/projectdata/uvc/mvc
+bbox:
+  xmin: -71.1
+  ymin:  43
+  xmax: -67
+  ymax: 47.5
+occurence:
+  filename: $datapath/occur/occur.csv.gz
+covariates:
+  static:
+    roads:
+      filename: $datapath/covars/road_data.csv.gz
+    meogis:
+      path: $datapath/covars/static_layers
+      vars:
+        - elevation
+        - forest_distance
+        - moose_harvest
+        - road_type
+        - speed_limit
+        - wetland_distance
+        - land_type
+      template: road_location_longlat.tif
+  dynamic:
+    nam:
+      - mean_relhum
+      - mean_sndep
+      - mean_trnstr
+      - mean_vegcvr
+    solar:
+      - solar_elevation
+      - solar_azimuth_u
+model:
+  engine: dismo::maxent
+  split: ~
+  seed: ~
+  nmin: 3 
+  nback: 5000
+  window:
+    - -5.0
+    - 5.0
+prediction:
+  step: 1
+  format: rds
