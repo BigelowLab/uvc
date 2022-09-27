@@ -37,9 +37,11 @@ records.
 We build the workflow around a configuration, which we store in YAML
 format, and we typically assign to variable `CFG`. This is human
 readable and simply becomes a convenient named list in R. See more more
-about configuration in the wiki. To simplify workflow steps, the
-configuration is often the first (and possibly the only) argument for
-many of the functions exposed by this package.
+about configuration in the
+[wiki](https://github.com/BigelowLab/uvc/wiki/Configurations). To
+simplify workflow steps, the configuration is often the first (and
+possibly the only) argument for many of the functions exposed by this
+package.
 
 Note that we provide some utility to implement limited `autopopulation`
 for paths. For example, when we read the YAML if we encounter an element
