@@ -18,7 +18,7 @@ suppressPackageStartupMessages({
 
 DEVMODE <- interactive()
 if (DEVMODE){
-  cfgfile <- '/mnt/ecocast/projectdata/uvc/dvc/versions/v0/v0.000/v0.000.yaml'
+  cfgfile <- '/mnt/ecocast/projectdata/uvc/mvc/versions/v0/v0.000/v0.000.yaml'
   DOYS <- format(Sys.Date() + seq(from = -2, to = 2), "%j") 
 } else {
   args <- commandArgs(trailingOnly = TRUE)
@@ -37,8 +37,7 @@ if (DEVMODE){
 
 # read the config and verify the output path
 CFG <- uvc::read_configuration(cfgfile)
-CFG$bbox <- sf::st_bbox(xmin = CFG$bbox[1], ymin = CFG$bbox[2],
-                        xmax = CFG$bbox[3], xmax = CFG$bbox[4])
+CFG$bbox <- sf::st_bbox(CFG$bbox)
 root <- uvc::build_version_path(CFG)
 
 
@@ -93,6 +92,16 @@ ROADS <- uvc::read_covariate_points(CFG)
 # read in the obs - remap where they misalign with roads
 CRASHES <- uvc::read_occurrence(CFG, template = template) |>
   uvc::relocate_occurrences(ROADS)
+
+# check if split is less than 1
+# if 1, take everything
+# if < 1, take the fraction out for testing
+if (CFG$split < 1) {
+  set.seed(CFG$seed)
+  test_idx <- sample(nrow(CRASHES), nrow(CRASHES)*CFG$split, replace = FALSE)
+  TEST_CRASHES <- dplyr::slice(CRASHES, test_idx)
+  CRASHES <- dplyr::slice(CRASHES, -test_idx)
+}
 
 if (DEVMODE) doy <- DOYS[1]
 

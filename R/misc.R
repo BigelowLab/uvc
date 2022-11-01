@@ -12,7 +12,11 @@ relocate_occurrences <- function(cr, rd){
   if (length(ix) == 0) return(cr)
  
   d <- sf::st_distance(dplyr::slice(cr, ix), rd)
-  imin <- apply(d, 1, which.min)
+  imin <- apply(d, 1, 
+                function(x) {
+                  i <- which.min(x)
+                  x[i]
+                })
   cr$cell[ix] <- imin
   return(cr)
 }

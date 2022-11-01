@@ -43,8 +43,7 @@ write_configuration <- function(x, filename){
   
   if ("bbox" %in% names(x)){
     y <- x
-    if (inherits(x$bbox), "bbox")) {
-      x$bbox <- as.list(x$bbox)
+    if (inherits(x$bbox, "bbox")) x$bbox <- as.list(x$bbox)
   }
   
   yaml::write_yaml(x, file = filename)
